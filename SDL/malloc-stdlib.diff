@@ -1,0 +1,11 @@
+--- SDL-fbfacc66c65c/src/stdlib/SDL_malloc.c
++++ SDL-fbfacc66c65c-9/src/stdlib/SDL_malloc.c
+@@ -5243,7 +5243,7 @@ History:
+ */
+ 
+ #endif /* !HAVE_MALLOC */
+-
++#include <stdlib.h>
+ #ifdef HAVE_MALLOC
+ #define real_malloc malloc
+ #define real_calloc calloc

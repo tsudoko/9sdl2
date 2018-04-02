@@ -1,0 +1,29 @@
+</$objtype/mkfile
+CC=pcc
+LD=pcc
+INCLUDE = -I./include
+# src/video/yuv2rgb/yuv_rgb.h uses // comments
+CFLAGS  = -+ -D_POSIX_SOURCE -DLACKS_SYS_MMAN_H -DHAVE_MALLOC $INCLUDE
+
+TARG  = libSDL.a
+# from Makefile.minimal
+# excluded: src/power/SDL_power.$O, empty array initializers are non-standard
+OFILES = src/SDL.$O src/SDL_assert.$O src/SDL_dataqueue.$O src/SDL_error.$O src/SDL_hints.$O src/SDL_log.$O src/audio/SDL_audio.$O src/audio/SDL_audiocvt.$O src/audio/SDL_audiodev.$O src/audio/SDL_audiotypecvt.$O src/audio/SDL_mixer.$O src/audio/SDL_wave.$O src/audio/dummy/SDL_dummyaudio.$O src/cpuinfo/SDL_cpuinfo.$O src/events/SDL_clipboardevents.$O src/events/SDL_dropevents.$O src/events/SDL_events.$O src/events/SDL_gesture.$O src/events/SDL_keyboard.$O src/events/SDL_mouse.$O src/events/SDL_quit.$O src/events/SDL_touch.$O src/events/SDL_windowevents.$O src/file/SDL_rwops.$O src/haptic/SDL_haptic.$O src/haptic/dummy/SDL_syshaptic.$O src/joystick/SDL_gamecontroller.$O src/joystick/SDL_joystick.$O src/joystick/dummy/SDL_sysjoystick.$O src/loadso/dummy/SDL_sysloadso.$O src/filesystem/dummy/SDL_sysfilesystem.$O src/render/SDL_d3dmath.$O src/render/SDL_render.$O src/render/SDL_yuv_sw.$O src/render/software/SDL_blendfillrect.$O src/render/software/SDL_blendline.$O src/render/software/SDL_blendpoint.$O src/render/software/SDL_drawline.$O src/render/software/SDL_drawpoint.$O src/render/software/SDL_render_sw.$O src/render/software/SDL_rotate.$O src/stdlib/SDL_getenv.$O src/stdlib/SDL_iconv.$O src/stdlib/SDL_malloc.$O src/stdlib/SDL_qsort.$O src/stdlib/SDL_stdlib.$O src/stdlib/SDL_string.$O src/thread/SDL_thread.$O src/thread/generic/SDL_syscond.$O src/thread/generic/SDL_sysmutex.$O src/thread/generic/SDL_syssem.$O src/thread/generic/SDL_systhread.$O src/thread/generic/SDL_systls.$O src/timer/SDL_timer.$O src/timer/dummy/SDL_systimer.$O src/video/SDL_RLEaccel.$O src/video/SDL_blit.$O src/video/SDL_blit_0.$O src/video/SDL_blit_1.$O src/video/SDL_blit_A.$O src/video/SDL_blit_N.$O src/video/SDL_blit_auto.$O src/video/SDL_blit_copy.$O src/video/SDL_blit_slow.$O src/video/SDL_bmp.$O src/video/SDL_clipboard.$O src/video/SDL_egl.$O src/video/SDL_fillrect.$O src/video/SDL_pixels.$O src/video/SDL_rect.$O src/video/SDL_shape.$O src/video/SDL_stretch.$O src/video/SDL_surface.$O src/video/SDL_video.$O src/video/SDL_vulkan_utils.$O src/video/SDL_yuv.$O src/video/dummy/SDL_nullevents.$O src/video/dummy/SDL_nullframebuffer.$O src/video/dummy/SDL_nullvideo.$O
+# src/libm/*.c
+OFILES = $OFILES src/libm/e_atan2.$O src/libm/e_fmod.$O src/libm/e_log.$O src/libm/e_log10.$O src/libm/e_pow.$O src/libm/e_rem_pio2.$O src/libm/e_sqrt.$O src/libm/k_cos.$O src/libm/k_rem_pio2.$O src/libm/k_sin.$O src/libm/k_tan.$O src/libm/s_atan.$O src/libm/s_copysign.$O src/libm/s_cos.$O src/libm/s_fabs.$O src/libm/s_floor.$O src/libm/s_scalbn.$O src/libm/s_sin.$O src/libm/s_tan.$O
+# src/video/yuv2rgb/*.c
+OFILES = $OFILES src/video/yuv2rgb/yuv_rgb.$O
+# src/atomic/*.c
+OFILES = $OFILES src/atomic/SDL_atomic.$O src/atomic/SDL_spinlock.$O
+
+
+all:V: $TARG
+
+%.$O: %.c
+	$CC $CFLAGS -co $target $prereq
+
+$TARG: $OFILES
+	ar cr $target $prereq
+
+clean:V:
+	rm -f $TARG $OFILES

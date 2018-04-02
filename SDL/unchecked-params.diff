@@ -1,0 +1,82 @@
+--- SDL-fbfacc66c65c/src/joystick/SDL_gamecontroller.c
++++ SDL-fbfacc66c65c-9/src/joystick/SDL_gamecontroller.c
+@@ -198,7 +198,7 @@ static int SDL_PrivateGameControllerButton(SDL_GameController * gamecontroller,
+  * to have the right value for which, because the number of controllers in
+  * the system is now one less.
+  */
+-static void UpdateEventsForDeviceRemoval()
++static void UpdateEventsForDeviceRemoval(void)
+ {
+     int i, num_events;
+     SDL_Event *events;
+@@ -1263,7 +1263,7 @@ SDL_GameControllerMapping(SDL_GameController * gamecontroller)
+ }
+ 
+ static void
+-SDL_GameControllerLoadHints()
++SDL_GameControllerLoadHints(void)
+ {
+     const char *hint = SDL_GetHint(SDL_HINT_GAMECONTROLLERCONFIG);
+     if (hint && hint[0]) {
+--- SDL-fbfacc66c65c/src/joystick/SDL_joystick.c
++++ SDL-fbfacc66c65c-9/src/joystick/SDL_joystick.c
+@@ -594,7 +594,7 @@ SDL_JoystickQuit(void)
+ 
+ 
+ static SDL_bool
+-SDL_PrivateJoystickShouldIgnoreEvent()
++SDL_PrivateJoystickShouldIgnoreEvent(void)
+ {
+     if (SDL_joystick_allows_background_events) {
+         return SDL_FALSE;
+@@ -628,7 +628,7 @@ void SDL_PrivateJoystickAdded(int device_index)
+  * to have the right value for which, because the number of controllers in
+  * the system is now one less.
+  */
+-static void UpdateEventsForDeviceRemoval()
++static void UpdateEventsForDeviceRemoval(void)
+ {
+     int i, num_events;
+     SDL_Event *events;
+--- SDL-fbfacc66c65c/src/thread/SDL_thread.c
++++ SDL-fbfacc66c65c-9/src/thread/SDL_thread.c
+@@ -84,7 +84,7 @@ SDL_TLSSet(SDL_TLSID id, const void *value, void (SDLCALL *destructor)(void *))
+ }
+ 
+ static void
+-SDL_TLSCleanup()
++SDL_TLSCleanup(void)
+ {
+     SDL_TLSData *storage;
+ 
+--- SDL-fbfacc66c65c/src/video/SDL_blit.c
++++ SDL-fbfacc66c65c-9/src/video/SDL_blit.c
+@@ -117,7 +117,7 @@ SDL_UseAltivecPrefetch()
+ }
+ #else
+ static SDL_bool
+-SDL_UseAltivecPrefetch()
++SDL_UseAltivecPrefetch(void)
+ {
+     /* Just guess G4 */
+     return SDL_TRUE;
+--- SDL-fbfacc66c65c/src/video/SDL_video.c
++++ SDL-fbfacc66c65c-9/src/video/SDL_video.c
+@@ -166,7 +166,7 @@ typedef struct {
+ } SDL_WindowTextureData;
+ 
+ static SDL_bool
+-ShouldUseTextureFramebuffer()
++ShouldUseTextureFramebuffer(void)
+ {
+     const char *hint;
+ 
+@@ -437,7 +437,7 @@ cmpmodes(const void *A, const void *B)
+ }
+ 
+ static int
+-SDL_UninitializedVideo()
++SDL_UninitializedVideo(void)
+ {
+     return SDL_SetError("Video subsystem has not been initialized");
+ }

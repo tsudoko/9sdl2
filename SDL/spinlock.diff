@@ -1,0 +1,30 @@
+--- SDL-fbfacc66c65c/src/atomic/SDL_spinlock.c
++++ SDL-fbfacc66c65c-9/src/atomic/SDL_spinlock.c
+@@ -20,6 +20,9 @@
+ */
+ #include "../SDL_internal.h"
+ 
++#define _PLAN9_SOURCE
++#include <lock.h>
++
+ #if defined(__WIN32__) || defined(__WINRT__)
+ #include "../core/windows/SDL_windows.h"
+ #endif
+@@ -111,8 +114,7 @@ SDL_AtomicTryLock(SDL_SpinLock *lock)
+     return (SDL_bool) ((int) atomic_cas_32((volatile uint32_t*)lock, 0, 1) == 0);
+ 
+ #else
+-#error Please implement for your platform.
+-    return SDL_FALSE;
++    return (SDL_bool) canlock((Lock*)lock);
+ #endif
+ }
+ 
+@@ -145,7 +147,7 @@ SDL_AtomicUnlock(SDL_SpinLock *lock)
+     membar_producer();
+ 
+ #else
+-    *lock = 0;
++    unlock((Lock*)lock);
+ #endif
+ }

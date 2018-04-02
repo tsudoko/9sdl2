@@ -1,0 +1,10 @@
+--- SDL-fbfacc66c65c/src/dynapi/SDL_dynapi.h
++++ SDL-fbfacc66c65c-9/src/dynapi/SDL_dynapi.h
+@@ -56,6 +56,7 @@
+ #elif defined(__clang_analyzer__)
+ #define SDL_DYNAMIC_API 0  /* Turn off for static analysis, so reports are more clear. */
+ #endif
++#define SDL_DYNAMIC_API 0
+ 
+ /* everyone else. This is where we turn on the API if nothing forced it off. */
+ #ifndef SDL_DYNAMIC_API
