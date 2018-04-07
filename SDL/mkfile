@@ -15,6 +15,7 @@ OFILES = $OFILES src/libm/e_atan2.$O src/libm/e_fmod.$O src/libm/e_log.$O src/li
 OFILES = $OFILES src/video/yuv2rgb/yuv_rgb.$O
 # src/atomic/*.c
 OFILES = $OFILES src/atomic/SDL_atomic.$O src/atomic/SDL_spinlock.$O
+OFILES = $OFILES src/video/plan9/SDL_devdraw.$O
 
 
 all:V: $TARG

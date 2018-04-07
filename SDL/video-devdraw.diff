@@ -1,0 +1,23 @@
+--- SDL-fbfacc66c65c/src/video/SDL_sysvideo.h
++++ SDL-fbfacc66c65c-9/src/video/SDL_sysvideo.h
+@@ -418,6 +418,7 @@ extern VideoBootStrap NACL_bootstrap;
+ extern VideoBootStrap VIVANTE_bootstrap;
+ extern VideoBootStrap Emscripten_bootstrap;
+ extern VideoBootStrap QNX_bootstrap;
++extern VideoBootStrap DEVDRAW_bootstrap;
+ 
+ extern SDL_VideoDevice *SDL_GetVideoDevice(void);
+ extern int SDL_AddBasicVideoDisplay(const SDL_DisplayMode * desktop_mode);
+--- SDL-fbfacc66c65c/src/video/SDL_video.c
++++ SDL-fbfacc66c65c-9/src/video/SDL_video.c
+@@ -112,6 +112,9 @@ static VideoBootStrap *bootstrap[] = {
+ #if SDL_VIDEO_DRIVER_QNX
+     &QNX_bootstrap,
+ #endif
++#if SDL_VIDEO_DRIVER_DEVDRAW
++    &DEVDRAW_bootstrap,
++#endif
+ #if SDL_VIDEO_DRIVER_DUMMY
+     &DUMMY_bootstrap,
+ #endif
+
