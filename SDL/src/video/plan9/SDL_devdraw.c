@@ -45,6 +45,7 @@ void eresized(int) {} /* required for successful linking, will implement later *
 
 #include "SDL_devdraw_c.h"
 #include "SDL_devdrawevents_c.h"
+#include "SDL_devdrawframebuffer_c.h"
 
 int
 DEVDRAW_videoinit(_THIS)
@@ -106,6 +107,8 @@ DEVDRAW_createwindow(_THIS, SDL_Window * w)
         return SDL_OutOfMemory();
     }
     w->driverdata = wdata;
+    w->w = Dx(screen->r);
+    w->h = Dy(screen->r);
 
     if ((w->flags & SDL_WINDOW_OPENGL) == SDL_WINDOW_OPENGL) {
         return SDL_Unsupported();
@@ -296,7 +299,9 @@ DEVDRAW_create()
 #if 0
     device->GetWindowWMInfo = DEVDRAW_getwindowwminfo;
 #endif
-    device->CreateWindowFramebuffer = DEVDRAW_createwindowframebuffer;
+    device->CreateWindowFramebuffer = DEVDRAW_CreateWindowFramebuffer;
+    device->DestroyWindowFramebuffer = DEVDRAW_DestroyWindowFramebuffer;
+    device->UpdateWindowFramebuffer = DEVDRAW_UpdateWindowFramebuffer;
 
     /* !!! FIXME: implement SetWindowBordered */
 
